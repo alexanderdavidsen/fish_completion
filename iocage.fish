@@ -244,7 +244,7 @@ complete -f -c iocage -n '__fish_iocage_using_command set' -a '(__fish_iocage_li
 complete -f -c iocage -n '__fish_iocage_needs_parameter set' -a '(__fish_iocage_list_jails)'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a show -d 'Shows the given property for all jails and templates'
-complete -f -c iocage -n '__fish_iocage_using_command show' -a '(__fish_iocage_list_jails)'
+complete -f -c iocage -n '__fish_iocage_using_command show' -a '(__fish_iocage_list_parameters_)'
 
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a snaplist -d 'List all snapshots belonging to jail'
