@@ -1,3 +1,4 @@
+# Fish completions for iocage
 
 function __fish_iocage_using_command
   set cmd (commandline -opc)
@@ -17,6 +18,14 @@ function __fish_iocage_needs_command
 	return 1
 end
 
+function __fish_iocage_needs_parameter
+  set cmd (commandline -opc)
+  if [ (count $cmd) -eq 3 -a $cmd[1] = 'iocage' ]
+    return 0
+  end
+  return 1
+end
+
 
 function __fish_iocage_list_jails
   command iocage list | awk '{print $5}' | sed '1d'
@@ -26,6 +35,105 @@ function __fish_iocage_list_jails_uuid
   command iocage list | awk '{print $2}' | sed '1d'
 end
 
+# This NEEDS to be fixed.
+function __fish_iocage_list_parameters
+	echo interfaces=
+  echo vnet=
+  echo host_hostname=
+  echo hostname=
+  echo ip4_addr=
+  echo ip4_autostart=
+  echo ip4_autoend=
+  echo ip4_autosubnet=
+  echo ip4_saddrsel=
+  echo ip4=
+  echo ip6_addr=
+  echo ip6_saddrsel=
+  echo ip6=
+  echo defaultrouter=
+  echo defaultrouter6=
+  echo resolver=
+  echo exec_fib=
+  echo vnet0_mac=
+  echo vnet1_mac=
+  echo vnet2_mac=
+  echo vnet3_mac=
+  echo devfs_ruleset=
+  echo mount_devfs=
+  echo exec_start=
+  echo exec_stop=
+  echo exec_prestart=
+  echo exec_prestop=
+  echo exec_poststop=
+  echo exec_poststart=
+  echo exec_clean=
+  echo exec_timeout=
+  echo stop_timeout=
+  echo exec_jail_user=
+  echo exec_system_jail_user=
+  echo exec_system_user=
+  echo mount_fdescfs=
+  echo mount_procfs=
+  echo enforce_statfs=
+  echo children_max=
+  echo login_flags=
+  echo securelevel=
+  echo allow_set_hostname=
+  echo allow_sysvipc=
+  echo allow_raw_sockets=
+  echo allow_chflags=
+  echo allow_mount=
+  echo allow_mount_devfs=
+  echo allow_mount_nullfs=
+  echo allow_mount_procfs=
+  echo allow_mount_tmpfs=
+  echo allow_mount_zfs=
+  echo allow_quotas=
+  echo allow_socket_af=
+  echo host_hostuuid=
+  echo memoryuse=
+  echo memorylocked=
+  echo vmemoryuse=
+  echo maxproc=
+  echo cputime=
+  echo pcpu=
+  echo datasize=
+  echo stacksize=
+  echo coredumpsize=
+  echo openfiles=
+  echo pseudoterminals=
+  echo swapuse=
+  echo nthr=
+  echo msgqqueued=
+  echo msgqsize=
+  echo nmsgq=
+  echo nsemop=
+  echo nshm=
+  echo shmsize=
+  echo wallclock=
+  echo tag=
+  echo template=
+  echo rlimits=
+  echo boot=
+  echo notes=
+  echo owner=
+  echo priority=
+  echo last_started=
+  echo type=
+  echo hostid=
+  echo cpuset=
+  echo jail_zfs=
+  echo jail_zfs_dataset=
+  echo release=
+  echo hack88=
+  echo sync_stat=
+  echo sync_target=
+  echo sync_tgt_zpool=
+  echo ftphost=
+  echo ftpdir=
+  echo gitlocation=
+  echo branch=
+end
 
 # General options
 complete -f -c iocage -n 'not __fish_iocage_needs_command'
@@ -115,7 +223,8 @@ complete -f -c iocage -n '__fish_iocage_using_command runtime' -a '(__fish_iocag
 
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a set -d 'Set a property to value'
-complete -f -c iocage -n '__fish_iocage_using_command set' -a '(__fish_iocage_list_jails)'
+complete -f -c iocage -n '__fish_iocage_using_command set' -a '(__fish_iocage_list_parameters)'
+complete -f -c iocage -n '__fish_iocage_needs_parameter set' -a '(__fish_iocage_list_jails)'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a show -d 'Shows the given property for all jails and templates'
 complete -f -c iocage -n '__fish_iocage_using_command show' -a '(__fish_iocage_list_jails)'
@@ -156,4 +265,4 @@ complete -f -c iocage -n '__fish_iocage_using_command create' -s e -d 'Create em
 complete -f -c iocage -n '__fish_iocage_using_command create' -s c -d 'Clone from current host RELEASE'
 complete -f -c iocage -n '__fish_iocage_using_command create' -a release -d 'Release to use'
 complete -f -c iocage -n '__fish_iocage_using_command create' -a pkglist
-
+complete -f -c iocage -n '__fish_iocage_using_command create' -a '(__fish_iocage_list_parameters)'
