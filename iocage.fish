@@ -37,109 +37,117 @@ end
 function __fish_iocage_list_jails_uuid
   command iocage list | awk '{print $2}' | sed '1d'
 end
+function __fish_iocage_list_parameters_
+	echo interfaces=
+	echo vnet=
+	echo host_hostname=
+	echo hostname=
+	echo ip4_addr=
+	echo ip4_autostart=
+	echo ip4_autoend=
+	echo ip4_autosubnet=
+	echo ip4_saddrsel=
+	echo ip4=
+	echo ip6_addr=
+	echo ip6_saddrsel=
+	echo ip6=
+	echo defaultrouter=
+	echo defaultrouter6=
+	echo resolver=
+	echo exec_fib=
+	echo vnet0_mac=
+	echo vnet1_mac=
+	echo vnet2_mac=
+	echo vnet3_mac=
+	echo devfs_ruleset=
+	echo mount_devfs=
+	echo exec_start=
+	echo exec_stop=
+	echo exec_prestart=
+	echo exec_prestop=
+	echo exec_poststop=
+	echo exec_poststart=
+	echo exec_clean=
+	echo exec_timeout=
+	echo stop_timeout=
+	echo exec_jail_user=
+	echo exec_system_jail_user=
+	echo exec_system_user=
+	echo mount_fdescfs=
+	echo mount_procfs=
+	echo enforce_statfs=
+	echo children_max=
+	echo login_flags=
+	echo securelevel=
+	echo allow_set_hostname=
+	echo allow_sysvipc=
+	echo allow_raw_sockets=
+	echo allow_chflags=
+	echo allow_mount=
+	echo allow_mount_devfs=
+	echo allow_mount_nullfs=
+	echo allow_mount_procfs=
+	echo allow_mount_tmpfs=
+	echo allow_mount_zfs=
+	echo allow_quotas=
+	echo allow_socket_af=
+	echo host_hostuuid=
+	echo memoryuse=
+	echo memorylocked=
+	echo vmemoryuse=
+	echo maxproc=
+	echo cputime=
+	echo pcpu=
+	echo datasize=
+	echo stacksize=
+	echo coredumpsize=
+	echo openfiles=
+	echo pseudoterminals=
+	echo swapuse=
+	echo nthr=
+	echo msgqqueued=
+	echo msgqsize=
+	echo nmsgq=
+	echo nsemop=
+	echo nshm=
+	echo shmsize=
+	echo wallclock=
+	echo tag=
+	echo template=
+	echo rlimits=
+	echo boot=
+	echo notes=
+	echo owner=
+	echo priority=
+	echo last_started=
+	echo type=
+	echo hostid=
+	echo cpuset=
+	echo jail_zfs=
+	echo jail_zfs_dataset=
+	echo release=
+	echo hack88=
+	echo sync_stat=
+	echo sync_target=
+	echo sync_tgt_zpool=
+	echo ftphost=
+	echo ftpdir=
+	echo gitlocation=
+	echo branch=
+end
 
 # This NEEDS to be fixed.
 function __fish_iocage_list_parameters
   set cmd (commandline -opc)
-  if [ (count $cmd) -eq 2 ]
-    echo interfaces=
-    echo vnet=
-    echo host_hostname=
-    echo hostname=
-    echo ip4_addr=
-    echo ip4_autostart=
-    echo ip4_autoend=
-    echo ip4_autosubnet=
-    echo ip4_saddrsel=
-    echo ip4=
-    echo ip6_addr=
-    echo ip6_saddrsel=
-    echo ip6=
-    echo defaultrouter=
-    echo defaultrouter6=
-    echo resolver=
-    echo exec_fib=
-    echo vnet0_mac=
-    echo vnet1_mac=
-    echo vnet2_mac=
-    echo vnet3_mac=
-    echo devfs_ruleset=
-    echo mount_devfs=
-    echo exec_start=
-    echo exec_stop=
-    echo exec_prestart=
-    echo exec_prestop=
-    echo exec_poststop=
-    echo exec_poststart=
-    echo exec_clean=
-    echo exec_timeout=
-    echo stop_timeout=
-    echo exec_jail_user=
-    echo exec_system_jail_user=
-    echo exec_system_user=
-    echo mount_fdescfs=
-    echo mount_procfs=
-    echo enforce_statfs=
-    echo children_max=
-    echo login_flags=
-    echo securelevel=
-    echo allow_set_hostname=
-    echo allow_sysvipc=
-    echo allow_raw_sockets=
-    echo allow_chflags=
-    echo allow_mount=
-    echo allow_mount_devfs=
-    echo allow_mount_nullfs=
-    echo allow_mount_procfs=
-    echo allow_mount_tmpfs=
-    echo allow_mount_zfs=
-    echo allow_quotas=
-    echo allow_socket_af=
-    echo host_hostuuid=
-    echo memoryuse=
-    echo memorylocked=
-    echo vmemoryuse=
-    echo maxproc=
-    echo cputime=
-    echo pcpu=
-    echo datasize=
-    echo stacksize=
-    echo coredumpsize=
-    echo openfiles=
-    echo pseudoterminals=
-    echo swapuse=
-    echo nthr=
-    echo msgqqueued=
-    echo msgqsize=
-    echo nmsgq=
-    echo nsemop=
-    echo nshm=
-    echo shmsize=
-    echo wallclock=
-    echo tag=
-    echo template=
-    echo rlimits=
-    echo boot=
-    echo notes=
-    echo owner=
-    echo priority=
-    echo last_started=
-    echo type=
-    echo hostid=
-    echo cpuset=
-    echo jail_zfs=
-    echo jail_zfs_dataset=
-    echo release=
-    echo hack88=
-    echo sync_stat=
-    echo sync_target=
-    echo sync_tgt_zpool=
-    echo ftphost=
-    echo ftpdir=
-    echo gitlocation=
-    echo branch=
+  if [ $cmd[1] -eq 'set' ]
+    if [ (count $cmd) -eq 2 ]
+     __fish_iocage_list_parameters_
+    end
+  else
+    __fish_iocage_list_parameters_
   end
 end
+
 
 # General options
 complete -f -c iocage -n 'not __fish_iocage_needs_command'
@@ -187,7 +195,6 @@ complete -f -c iocage -n '__fish_iocage_needs_command' -a help -d 'Display help'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a import -d 'Import full jail images or differential packages'
 
-# TODO fix options
 complete -f -c iocage -n '__fish_iocage_needs_command' -a init-host -d 'Initialize a remote host for iocage'
 complete -f -c iocage -n '__fish_iocage_using_command init-host' -a '(__fish_iocage_list_zpools)'
 
@@ -200,7 +207,6 @@ complete -f -c iocage -n '__fish_iocage_using_command limits' -a '(__fish_iocage
 complete -f -c iocage -n '__fish_iocage_needs_command' -a list -d 'List jails'
 complete -f -c iocage -n '__fish_iocage_using_command list' -s t -d 'List templates'
 complete -f -c iocage -n '__fish_iocage_using_command list' -s r -s 'List releases'
-
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a package -d 'Package recorded jail session into /iocage/packages'
 complete -f -c iocage -n '__fish_iocage_using_command package' -a '(__fish_iocage_list_jails)'
