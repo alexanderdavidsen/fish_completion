@@ -26,6 +26,9 @@ function __fish_iocage_needs_parameter
   return 1
 end
 
+function __fish_iocage_list_zpools
+  command zpool list -o name -H
+end
 
 function __fish_iocage_list_jails
   command iocage list | awk '{print $5}' | sed '1d'
@@ -141,6 +144,7 @@ end
 # General options
 complete -f -c iocage -n 'not __fish_iocage_needs_command'
 complete -f -c iocage -n '__fish_iocage_needs_command' -a activate -d 'Install iocage to this ZPOOL'
+complete -f -c iocage -n '__fish_iocage_using_command activate' -a '(__fish_iocage_list_zpools)'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a cap -d 'Reapply resource limits on jail while it is running'
 complete -f -c iocage -n '__fish_iocage_using_command cap' -a '(__fish_iocage_list_jails)'
@@ -156,6 +160,9 @@ complete -f -c iocage -n '__fish_iocage_using_command clean' -s j -d 'Destroy al
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a console -d 'Execute login to have a shell inside the jail'
 complete -f -c iocage -n '__fish_iocage_using_command console' -a '(__fish_iocage_list_jails)'
+
+complete -f -c iocage -n '__fish_iocage_needs_command' -a deactivate -d 'Remove the comment that iocage uses to locate a usable pool'
+complete -f -c iocage -n '__fish_iocage_using_command deactivate' -a '(__fish_iocage_list_zpools)'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a destroy  -d 'Destroy given jail'
 complete -f -c iocage -n '__fish_iocage_using_command destroy' -a '(__fish_iocage_list_jails)'
@@ -182,6 +189,7 @@ complete -f -c iocage -n '__fish_iocage_needs_command' -a import -d 'Import full
 
 # TODO fix options
 complete -f -c iocage -n '__fish_iocage_needs_command' -a init-host -d 'Initialize a remote host for iocage'
+complete -f -c iocage -n '__fish_iocage_using_command init-host' -a '(__fish_iocage_list_zpools)'
 
 complete -f -c iocage -n '__fish_iocage_needs_command' -a inuse -d 'Display active resource limits for a jail or all jails'
 complete -f -c iocage -n '__fish_iocage_using_command inuse' -a '(__fish_iocage_list_jails)'
